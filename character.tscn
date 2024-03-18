@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://4oarapbslas1"]
+
+[ext_resource type="Script" path="res://Character.gd" id="1_vwwie"]
+
+[sub_resource type="Gradient" id="Gradient_p2wdh"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g7hrc"]
+gradient = SubResource("Gradient_p2wdh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_db2vv"]
+
+[node name="Character" type="CharacterBody2D"]
+position = Vector2(219, 526)
+script = ExtResource("1_vwwie")
+
+[node name="Gradient" type="Sprite2D" parent="."]
+scale = Vector2(0.078125, 20)
+texture = SubResource("GradientTexture1D_g7hrc")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_db2vv")
