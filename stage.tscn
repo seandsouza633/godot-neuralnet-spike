@@ -15296,5 +15296,8 @@ shape = SubResource("RectangleShape2D_4i5a7")
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Display Anchor" type="Node2D" parent="."]
-position = Vector2(885, 302)
+[node name="Display Sight Anchor" type="Node2D" parent="."]
+position = Vector2(574, 458)
+
+[node name="Display Weights Anchor" type="Node2D" parent="."]
+position = Vector2(830, 38)

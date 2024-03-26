@@ -22,6 +22,7 @@ var goal: Node2D;
 var weights;
 var map;
 var map_anchor: Vector2;
+var WEIGHT_RADIUS: int;
 
 var frame_counter := 0
 var distance : Vector2;
@@ -81,7 +82,7 @@ func _physics_process(delta):
 		frame_counter += 1
 		idle_counter += 1
 		horizontal_idle_counter += 1
-		if (idle_counter >= 30 or horizontal_idle_counter >= 120) and not enable_input:
+		if (idle_counter >= 20 or horizontal_idle_counter >= 75) and not enable_input:
 			# print("timeout: idle")
 			close.emit("timeout")
 		elif frame_counter >= 600 and not enable_input:
@@ -91,13 +92,14 @@ func _physics_process(delta):
 		distance = abs(position - goal.position)
 		if distance < Vector2(5.0, 5.0):
 			success = true
+			close.emit("success")
 		
 
 func _process(delta):
 	pass
 	
 func _ready():
-	pass
+	WEIGHT_RADIUS = len(weights[0])
 
 func jump():
 	if is_on_floor():
@@ -114,8 +116,8 @@ func right():
 func eval_layer(layer) -> float:
 	var total = 0.0
 	var fitted_pos = translate_position_to_map(position, map_anchor)
-	var fitted_pos_anchor: Vector2i = fitted_pos - Vector2i(2, 2)
-	var offset_y = 0
+	var fitted_pos_anchor: Vector2i = fitted_pos - Vector2i(4, 4)
+	var offset_y = WEIGHT_RADIUS
 	var target_cells = []
 	for row in layer:
 		var offset_x = 0
@@ -124,7 +126,7 @@ func eval_layer(layer) -> float:
 			if target_cell in map:
 				total += cell
 				target_cells.append(target_cell)
-			offset_x += 1
+			offset_x -= 1
 		offset_y += 1
 	# print(str(target_cells))
 	return total
